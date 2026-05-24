@@ -13,6 +13,7 @@ _ALL_SUPPORTED_MODELS: list[str] = [
     "gemini-3-flash-preview",
     "gpt-5-nano",
     "gpt-5-mini",
+    "deepseek-chat",
     "gemini-3.1-pro-preview",  # Slowest
 ]
 
@@ -87,6 +88,14 @@ def create_llm(model_name: str, **kwargs) -> language_models.BaseLanguageModel:
     # OpenAI models
     elif model_name.startswith("gpt-"):
         return openai_llms.ChatOpenAI(model=model_name, **implied_kwargs, **kwargs)
+    # DeepSeek models (OpenAI-compatible API)
+    elif model_name.startswith("deepseek-"):
+        return openai_llms.ChatOpenAI(
+            model=model_name,
+            openai_api_base="https://api.deepseek.com/v1",
+            **implied_kwargs,
+            **kwargs,
+        )
     else:
         raise ValueError(f"Unknown model provider for '{model_name}'.")
 
