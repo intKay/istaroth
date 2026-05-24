@@ -88,7 +88,7 @@ services:
 
   istaroth:
     <<: *backend-common
-    command: ["python", "-m", "istaroth.services.backend"]
+    command: ["python", "-m", "istaroth.services.backend", "--port", "8090"]
     depends_on:
       backend-deps:
         condition: service_completed_successfully
@@ -114,6 +114,7 @@ services:
       - ISTAROTH_DOCUMENT_STORE_SET=CHS:/data/checkpoints/chs
       - ISTAROTH_DATABASE_URI=sqlite+aiosqlite:////data/state/web.sqlite
       - ISTAROTH_RETRIEVAL_SERVICE_URL=http://retrieval:8002
+      - ISTAROTH_METRICS_PORT=8091
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
 
   frontend:
