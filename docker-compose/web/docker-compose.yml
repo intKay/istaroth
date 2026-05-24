@@ -59,7 +59,7 @@ services:
 
   retrieval:
     <<: *backend-common
-    command: ["python", "-m", "istaroth.services.retrieval", "--reload"]
+    command: ["python", "-m", "istaroth.services.retrieval"]
     depends_on:
       backend-deps:
         condition: service_completed_successfully
@@ -88,7 +88,7 @@ services:
 
   istaroth:
     <<: *backend-common
-    command: ["python", "-m", "istaroth.services.backend", "--reload"]
+    command: ["python", "-m", "istaroth.services.backend"]
     depends_on:
       backend-deps:
         condition: service_completed_successfully
